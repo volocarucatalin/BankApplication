@@ -1,92 +1,39 @@
 package controller;
 
-import builder.BuilderAccount;
-import database.DbConnection;
 import model.Account;
+import org.modelmapper.ModelMapper;
+import service.AccountService;
+import view.AccountDTO;
 
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AccountController {
 
-    private DbConnection dbConnection;
+    private AccountService accountService;
+    private ModelMapper modelMapper;
 
-    public AccountController(DbConnection dbConnection) {
-        this.dbConnection = dbConnection;
+    public AccountController(AccountService accountService, ModelMapper modelMapper) {
+        this.accountService = accountService;
+        this.modelMapper = modelMapper;
     }
 
 
-    public List<Account> getAllAccounts() throws SQLException {
-        List<Account> accounts = new ArrayList<>();
-        String query = "select * from accounts ";
-        Statement statement = dbConnection.getConnection().createStatement();
-        ResultSet resultSet = statement.executeQuery(query);
-        while (resultSet.next()) {
-            accounts.add(BuilderAccount.build(resultSet.getString("first_name"),
-                    resultSet.getString("last_name"),
-                    resultSet.getLong("card_number"),
-                    resultSet.getLong("account_number"),
-                    resultSet.getInt("sort_code"),
-                    resultSet.getInt("security_code")));
-        }
+    public List<AccountDTO> getAllAccounts() {
 
-
-        return accounts;
+        List<Account> accounts = accountService.getAllAccounts();
+        return accounts
+                .stream()
+                .map(account -> modelMapper.map(account, AccountDTO.class))
+                .collect(Collectors.toList());
     }
 
-    public Account findAccount(String sortCode) throws SQLException {
-        String query = "select *  from accounts";
-        Statement statement = dbConnection.getConnection().createStatement();
-        ResultSet resultSet = statement.executeQuery(query);
-
-       while (resultSet.next()) {
-           if (resultSet.getInt("sort_code") == Integer.parseInt(sortCode)) {
-               return BuilderAccount.build(resultSet.getString("first_name"),
-                       resultSet.getString("last_name"),
-                       resultSet.getLong("card_number"),
-                       resultSet.getLong("account_number"),
-                       resultSet.getInt("sort_code"),
-                       resultSet.getInt("security_code"));
-
-           }
-       }
-            return null;
+    public AccountDTO findAccountBySortCode(String sortCode) {
+        Account account = accountService.findAccountBySortCode(sortCode);
+        return modelMapper.map(account, AccountDTO.class);
 
     }
 
-    public  long reedBalance(String sortCode ) throws SQLException {
-        long balance = 0;
-        String query = "select balance from accounts where sort_code = ?";
-        PreparedStatement statement = dbConnection.getConnection().prepareStatement(query);
-        statement.setString(1,sortCode);
-        ResultSet resultSet = statement.executeQuery(query);
-        resultSet.next();
-        balance = resultSet.getLong("balance");
 
-        return balance;
-    }
-
-    public List<String> saveAccountInfo(List<String> accountInfo , String sortCode) throws SQLException {
-        String query = "select *  from accounts";
-        Statement statement = dbConnection.getConnection().createStatement();
-        ResultSet resultSet = statement.executeQuery(query);
-        while (resultSet.next()) {
-
-            if (resultSet.getString("sort_code").equals(sortCode)) {
-                accountInfo.add(resultSet.getString("first_name"));
-                accountInfo.add(resultSet.getString("last_name"));
-                accountInfo.add(resultSet.getString("sort_code"));
-                accountInfo.add(resultSet.getString("account_number"));
-
-            }
-        }
-        return accountInfo;
-
-    }
 
 }

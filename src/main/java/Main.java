@@ -1,16 +1,7 @@
-package main.java;
 
-import controller.AccountController;
-import database.DbConnection;
-import database.DbConnectionImpl;
-import model.Account;
 import service.InputReceiver;
-import service.MoneyTransfer;
 
-import java.io.InputStreamReader;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Scanner;
 
 public class Main {
 
@@ -20,7 +11,7 @@ public class Main {
         System.out.println("Press 2 if you want to find out id the account exist");
         System.out.println("Press 3 if you want to make a transfer");
 
-        InputReceiver.result();
+       new  InputReceiver().result();
 
     }
 }
