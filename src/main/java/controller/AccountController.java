@@ -28,7 +28,7 @@ public class AccountController {
                 .collect(Collectors.toList());
     }
 
-    public AccountDTO findAccountBySortCode(String sortCode) {
+    public AccountDTO findAccountBySortCode(int sortCode) {
         Account account = accountService.findAccountBySortCode(sortCode);
         return modelMapper.map(account, AccountDTO.class);
 

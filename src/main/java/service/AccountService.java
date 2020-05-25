@@ -19,7 +19,7 @@ public class AccountService {
         return accountRepository.findAllAccounts();
     }
 
-    public Account findAccountBySortCode(String sortCode) {
+    public Account findAccountBySortCode(int sortCode) {
         return accountRepository.findAccountBySortCode(sortCode);
     }
 }

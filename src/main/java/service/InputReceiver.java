@@ -6,10 +6,9 @@ import database.DbConnection;
 import database.DbConnectionImpl;
 import org.modelmapper.ModelMapper;
 import repository.AccountRepository;
+import repository.StatementRepository;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class InputReceiver {
@@ -20,6 +19,7 @@ public class InputReceiver {
     private TransferService transferService;
     private AccountController accountController;
     private TransferController transferController;
+    private StatementRepository statementRepository;
 
 
     public InputReceiver() throws SQLException {
@@ -31,9 +31,10 @@ public class InputReceiver {
         connection = new DbConnectionImpl();
         connection.connect();
         accountRepository = new AccountRepository(connection);
+        statementRepository = new StatementRepository(connection);
         accountService = new AccountService(accountRepository);
         accountController = new AccountController(accountService, modelMapper);
-        transferService = new TransferService(accountRepository);
+        transferService = new TransferService(accountRepository, statementRepository);
         transferController = new TransferController(transferService);
 
     }
@@ -52,7 +53,8 @@ public class InputReceiver {
                 break;
 
             case "2":
-                System.out.println(accountController.findAccountBySortCode(scanner.nextLine()));
+                int sortCode = Integer.parseInt(scanner.nextLine());
+                System.out.println(accountController.findAccountBySortCode(sortCode));
 
 
                 break;
@@ -62,10 +64,13 @@ public class InputReceiver {
                 break;
 
             case "3":
-                System.out.println("Please enter your Sort Code \n " +
-                        "Receiver Sort Code \n" +
-                        " Amount you would like to send");
-                transferController.transferBetween(scanner.nextLine(), scanner.nextLine(), Long.parseLong(scanner.nextLine()));
+                System.out.println("Please enter your Sort Code:");
+                int senderSortCode = Integer.parseInt(scanner.nextLine());
+                System.out.println("Please enter Receiver Sort Code:");
+                int receiverSortCode = Integer.parseInt(scanner.nextLine());
+                System.out.println("Please enter the amount you would like to transfer:");
+                long amount = Long.parseLong(scanner.nextLine());
+                transferController.transferBetween(senderSortCode, receiverSortCode, amount);
                 break;
 
             default:

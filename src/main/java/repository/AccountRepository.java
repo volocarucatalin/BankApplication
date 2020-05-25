@@ -42,13 +42,13 @@ public class AccountRepository {
 
     }
 
-    public Account findAccountBySortCode(String sortCode) {
+    public Account findAccountBySortCode(int sortCode) {
         String query = "select  * from accounts where sort_code = ?";
 
 
         try {
             PreparedStatement statement = connection.getConnection().prepareStatement(query);
-            statement.setInt(1, Integer.parseInt(sortCode));
+            statement.setInt(1, sortCode);
             ResultSet resultSet = statement.executeQuery();
 
             resultSet.next();
