@@ -6,12 +6,12 @@ public class Account {
     private long accountNumber;
     private int securityCode;
     private int sortCode;
-    private long balance;
+    private double balance;
 
     public Account() {
     }
 
-    public Account(String name, long cardNumber, long accountNumber, int securityCode, int sortCode, long balance ) {
+    public Account(String name, long cardNumber, long accountNumber, int securityCode, int sortCode, double balance ) {
         this.name = name;
         this.cardNumber = cardNumber;
         this.accountNumber = accountNumber;
@@ -60,11 +60,11 @@ public class Account {
         this.sortCode = sortCode;
     }
 
-    public long getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(long balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 

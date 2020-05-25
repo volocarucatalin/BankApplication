@@ -13,7 +13,7 @@ public class TransferService {
         this.statementRepository = statementRepository;
     }
 
-    public void transferBetween(int senderSortCode, int receiverSortCode, long amount) {
+    public void transferBetween(int senderSortCode, int receiverSortCode, double amount) {
 
         Account accountSender = accountRepository.findAccountBySortCode(senderSortCode);
 
@@ -44,7 +44,7 @@ public class TransferService {
         System.out.println("Transaction have been successful!");
     }
 
-    private void insertStatement(int senderSortCode, int receiverSortCode, long amount, String statusTransaction) {
+    private void insertStatement(int senderSortCode, int receiverSortCode, double amount, String statusTransaction) {
         statementRepository.updateStatement(senderSortCode,receiverSortCode,amount,statusTransaction);
     }
 }

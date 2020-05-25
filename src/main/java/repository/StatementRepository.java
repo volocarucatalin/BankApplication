@@ -14,13 +14,13 @@ public class StatementRepository {
     }
 
 
-    public void updateStatement(int senderSortCode, int receiverSortCode, long amount, String statusTransaction) {
+    public void updateStatement(int senderSortCode, int receiverSortCode, double amount, String statusTransaction) {
         String query = "INSERT INTO statements VALUES (?,?,?,?,?)";
 
         try {
             PreparedStatement statement = connection.getConnection().prepareStatement(query);
             statement.setInt(1, senderSortCode);
-            statement.setLong(2, amount);
+            statement.setDouble(2, amount);
             statement.setInt(3, receiverSortCode);
             statement.setString(4, statusTransaction);
             statement.setDate(5, new Date(System.currentTimeMillis()));

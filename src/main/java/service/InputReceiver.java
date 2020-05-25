@@ -69,8 +69,8 @@ public class InputReceiver {
                 System.out.println("Please enter Receiver Sort Code:");
                 int receiverSortCode = Integer.parseInt(scanner.nextLine());
                 System.out.println("Please enter the amount you would like to transfer:");
-                long amount = Long.parseLong(scanner.nextLine());
-                transferController.transferBetween(senderSortCode, receiverSortCode, amount);
+                double amount = Double.parseDouble(scanner.nextLine());
+                transferController.transferBetween(senderSortCode, receiverSortCode,  amount);
                 break;
 
             default:

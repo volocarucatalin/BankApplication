@@ -94,7 +94,7 @@ public class AccountRepository {
 
         try {
             PreparedStatement statement = connection.getConnection().prepareStatement(query);
-            statement.setLong(1, account.getBalance());
+            statement.setDouble(1, account.getBalance());
             statement.setInt(2, account.getSortCode());
             statement.executeQuery();
         } catch (SQLException e) {

@@ -10,7 +10,7 @@ public class TransferController {
         this.transferService = transferService;
     }
 
-    public void transferBetween(int senderSortCode, int receiverSortCode, long sendBalance) {
+    public void transferBetween(int senderSortCode, int receiverSortCode, double sendBalance) {
         transferService.transferBetween(senderSortCode, receiverSortCode, sendBalance);
     }
 
