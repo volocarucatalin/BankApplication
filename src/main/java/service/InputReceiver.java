@@ -1,6 +1,7 @@
 package service;
 
 import controller.AccountController;
+import controller.StatementController;
 import controller.TransferController;
 import database.DbConnection;
 import database.DbConnectionImpl;
@@ -15,11 +16,14 @@ public class InputReceiver {
     private ModelMapper modelMapper;
     private DbConnection connection;
     private AccountRepository accountRepository;
+    private StatementRepository statementRepository;
     private AccountService accountService;
     private TransferService transferService;
+    private StatementService statementService;
     private AccountController accountController;
     private TransferController transferController;
-    private StatementRepository statementRepository;
+    private StatementController statementController;
+
 
 
     public InputReceiver() throws SQLException {
@@ -36,6 +40,9 @@ public class InputReceiver {
         accountController = new AccountController(accountService, modelMapper);
         transferService = new TransferService(accountRepository, statementRepository);
         transferController = new TransferController(transferService);
+        statementService = new StatementService(statementRepository);
+        statementController = new StatementController(statementService);
+
 
     }
 
@@ -73,6 +80,21 @@ public class InputReceiver {
                 transferController.transferBetween(senderSortCode, receiverSortCode,  amount);
                 break;
 
+            case "4":
+                System.out.println("Please enter your Sort Code:");
+                int yourSortCode = Integer.parseInt(scanner.nextLine());
+                System.out.println("Connecting to your account...");
+
+                try {
+                    for (int i = 0; i <statementController.getStatementBySortCode(yourSortCode).size(); i++) {
+
+                        System.out.println(statementController.getStatementBySortCode(yourSortCode).get(i));
+                    }
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                break;
             default:
                 System.out.println("Option not found");
                 System.out.println("Please enter a valid number");
