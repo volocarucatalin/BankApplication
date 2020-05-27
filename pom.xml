@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.bankaplication</groupId>
-    <artifactId>BankTransfer</artifactId>
+    <groupId>com.bank.app</groupId>
+    <artifactId>BankApp</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -19,6 +19,11 @@
             <artifactId>junit</artifactId>
             <version>4.13</version>
         </dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>2.3.7</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -30,7 +35,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>catalin.Main</mainClass>
+                            <mainClass>Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -38,5 +43,5 @@
             </plugin>
         </plugins>
     </build>
-
+    
 </project>
