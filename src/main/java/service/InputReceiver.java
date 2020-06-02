@@ -41,7 +41,7 @@ public class InputReceiver {
         transferService = new TransferService(accountRepository, statementRepository);
         transferController = new TransferController(transferService);
         statementService = new StatementService(statementRepository);
-        statementController = new StatementController(statementService);
+        statementController = new StatementController(statementService,modelMapper);
 
 
     }
@@ -85,15 +85,10 @@ public class InputReceiver {
                 int yourSortCode = Integer.parseInt(scanner.nextLine());
                 System.out.println("Connecting to your account...");
 
-                try {
                     for (int i = 0; i <statementController.getStatementBySortCode(yourSortCode).size(); i++) {
-
                         System.out.println(statementController.getStatementBySortCode(yourSortCode).get(i));
                     }
 
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
                 break;
             default:
                 System.out.println("Option not found");

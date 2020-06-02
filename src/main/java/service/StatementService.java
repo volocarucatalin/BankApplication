@@ -13,12 +13,9 @@ public class StatementService {
         this.statementRepository = statementRepository;
     }
 
-    public List<Statement> getStatementBySortCode(int sortCode) {
-        try {
+    public List<Statement> getStatementBySortCode(int sortCode){
+
             return statementRepository.getStatement(sortCode);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
+
     }
 }

@@ -9,9 +9,10 @@ public class BuilderStatement {
     public BuilderStatement() {
     }
 
-    public static Statement build(String firstName, String lastName, int sortCode, double amount,String status , String date) {
+    public static Statement build(String firstName, String lastName, int sortCode, double amount , String receiverFirstName ,String receiverLastName ,String status , String date) {
         String name = firstName + " " + lastName;
-        Statement result = new Statement(name, sortCode, amount,status, date);
+        String receiverName = receiverFirstName + " " + receiverLastName;
+        Statement result = new Statement(name, sortCode, amount,receiverName ,status, date);
 
         return result;
     }
