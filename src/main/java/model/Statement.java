@@ -2,15 +2,17 @@ package model;
 
 public class Statement {
     private String name;
+    private String receiverName;
     private int sortCode;
     private double amount;
     private String status;
     private String date;
 
-    public Statement(String name, int sortCode, double amount, String status, String date) {
+    public Statement(String name, int sortCode, double amount,String receiverName, String status, String date) {
         this.name = name;
         this.sortCode = sortCode;
         this.amount = amount;
+        this.receiverName = receiverName;
         this.status = status;
         this.date = date;
     }
@@ -55,13 +57,23 @@ public class Statement {
         return date;
     }
 
+    public String getReceiverName() {
+        return receiverName;
+    }
+
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
+    }
+
     @Override
     public String toString() {
-        return "Statement:" +
+        return "Statement{" +
                 "name='" + name + '\'' +
+                ", receiverName='" + receiverName + '\'' +
                 ", sortCode=" + sortCode +
                 ", amount=" + amount +
                 ", status='" + status + '\'' +
-                ", date='" + date;
+                ", date='" + date + '\'' +
+                '}';
     }
 }

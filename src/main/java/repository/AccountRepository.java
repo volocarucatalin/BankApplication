@@ -69,24 +69,7 @@ public class AccountRepository {
 
     }
 
-    public long returnBalanceBySortCode(String sortCode) {
-        String query = "select  * from accounts where sort_code = ?";
 
-
-        try {
-            PreparedStatement statement = connection.getConnection().prepareStatement(query);
-            statement.setInt(1, Integer.parseInt(sortCode));
-            ResultSet resultSet = statement.executeQuery();
-
-            resultSet.next();
-            return resultSet.getLong("balance");
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Account not found with sort_code" + sortCode);
-        }
-    }
 
 
     public void updateAccount(Account account) {
